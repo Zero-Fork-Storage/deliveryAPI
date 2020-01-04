@@ -6,17 +6,11 @@ import json
 class de_dhl:
     def __init__(self):
         self.api_url = 'https://www.logistics.dhl/shipmentTracking'
-        self.at_pickup = ['at_pickup', '상품인수']
-        self.delivered = ['delivered', '배송완료']
         self.STATUS_ID_MAP = {
             'picked up': {'id': 'at_pickup', 'text': '상품인수'},
             'delivered': {'id': 'delivered', 'text': '배송완료'}
         }
-    #def getTime(self, location, date, time):
-        
-
-
-
+                
     def query(self, track_id):
         resp = requests.get(
             url=self.api_url,
@@ -35,31 +29,49 @@ class de_dhl:
             return
         
         return resp
-        
-    def get(self, track_id):
-        data = de_dhl().query(track_id).json()
-        results = data['results']
-        info = results[0]
-        #print(json.dumps(info,indent=4, sort_keys=True, ensure_ascii=False))
-        checkpoints = info['checkpoints']
-        checkpoints_len = len(info['checkpoints'])
-        last_push = (checkpoints_len - 1 - (checkpoints_len - 1))
-        # print(checkpoints[last_push])
-        shippingInfo = {
+
+    def _data(self, track_id):
+        return de_dhl().query(track_id).json()
+class Processing_dhl(de_dhl):
+    def __init__(self):
+        self.data = super()._data
+        self.shippingInfo_templit = {
             'from': {
-                'name': info['origin']['value']
+                "origin": None
             },
             'to': {
-                'name': info['destination']['value']
+                'destination': None
             },
             'state': {
-                'info': checkpoints[last_push]
+                'DeliveryStatus': None,
+                'description': None,
+                'location': None,
+                'date': None,
+                'time': None
             }
         }
-        return shippingInfo
 
-app = de_dhl()
-#print(json.dumps(app.get("-------------"),indent=4, sort_keys=False, ensure_ascii=False))
+    def get(self, track_id):
+        data = self.data(track_id)
+        results = data['results']
+        
+        state = results[0]
+        checkpoints = state['checkpoints']
+        last_checkpoint = checkpoints[0]
+
+        templit = self.shippingInfo_templit
+        templit['from']['origin'] = state['origin']['value']
+        templit['to']['destination'] = state['destination']['value']
+        templit['state']['DeliveryStatus'] = state['delivery']['status']
+        templit['state']['description'] = last_checkpoint['description']
+        templit['state']['location'] = last_checkpoint['location']
+        templit['state']['date'] = last_checkpoint['date']
+        templit['state']['time'] = last_checkpoint['time']
+        return templit
+
+
+app = Processing_dhl()
+print(json.dumps(app.get("-----------"),indent=4, sort_keys=False, ensure_ascii=False))
 
         
         
