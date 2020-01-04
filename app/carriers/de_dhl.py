@@ -10,6 +10,21 @@ class de_dhl:
             'picked up': {'id': 'at_pickup', 'text': '상품인수'},
             'delivered': {'id': 'delivered', 'text': '배송완료'}
         }
+        self.shippingInfo_templit = {
+            'from': {
+                "origin": None
+            },
+            'to': {
+                'destination': None
+            },
+            'state': {
+                'DeliveryStatus': None,
+                'description': None,
+                'location': None,
+                'date': None,
+                'time': None
+            }
+        }
                 
     def query(self, track_id):
         resp = requests.get(
@@ -26,33 +41,9 @@ class de_dhl:
         #print(resp.status_code)
         if resp.status_code != 200:
             print("ERROR")
-            return
-        
-        return resp
-
-    def _data(self, track_id):
-        return de_dhl().query(track_id).json()
-class Processing_dhl(de_dhl):
-    def __init__(self):
-        self.data = super()._data
-        self.shippingInfo_templit = {
-            'from': {
-                "origin": None
-            },
-            'to': {
-                'destination': None
-            },
-            'state': {
-                'DeliveryStatus': None,
-                'description': None,
-                'location': None,
-                'date': None,
-                'time': None
-            }
-        }
-
-    def get(self, track_id):
-        data = self.data(track_id)
+            return ("ERROR")
+        data = resp.json()
+        # print(data)
         results = data['results']
         
         state = results[0]
@@ -68,10 +59,6 @@ class Processing_dhl(de_dhl):
         templit['state']['date'] = last_checkpoint['date']
         templit['state']['time'] = last_checkpoint['time']
         return templit
-
-
-app = Processing_dhl()
-print(json.dumps(app.get("-----------"),indent=4, sort_keys=False, ensure_ascii=False))
 
         
         

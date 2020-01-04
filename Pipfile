@@ -9,6 +9,6 @@ verify_ssl = true
 requests = "*"
 flask = "*"
 pipfile = "*"
-
+flask-restful = "*"
 [requires]
 python_version = "3.7"
