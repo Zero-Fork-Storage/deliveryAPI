@@ -1,3 +1,0 @@
-deliveryAPI for Python
-===
-
