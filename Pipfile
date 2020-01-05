@@ -10,5 +10,9 @@ requests = "*"
 flask = "*"
 pipfile = "*"
 flask-restful = "*"
+datetime = "*"
+bs4 = "*"
+lxml = "*"
+
 [requires]
 python_version = "3.7"
