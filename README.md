@@ -18,11 +18,15 @@ $python run.py
 ## 사용법
 [https://api.zeroday0619.kr/v1/tracking](https://api.zeroday0619.kr/v1/tracking)
 
+0 => DHL\n
+1 => CJ 대한통운
+
 ###HTTP
 ```http
 GET /v1/tracking HTTP/1.1
 Content-Type: application/json
 {
+    "code": 0,
 	"track_id": "0000000000"
 }
 ```
@@ -32,6 +36,7 @@ import requests
 
 url = "https://api.zeroday0619.kr/v1/tracking"
 payload = {
+    "code": 0,
 	"track_id": "0000000000"
 }
 headers = {
@@ -49,7 +54,7 @@ var options = { method: 'GET',
   headers: {
   'Content-Type': 'application/json'
   },
-  body: { track_id: '0000000000' },
+  body: { code: 0 ,track_id: '0000000000' },
   json: true 
 };
 
