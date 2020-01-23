@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_restful import Resource
 from flask_restful import reqparse
-from app.carriers.de_dhl import de_dhl
+from app.carriers.de.dhl import de_dhl
 from datetime import datetime
 
 class DHL_API(Resource):
