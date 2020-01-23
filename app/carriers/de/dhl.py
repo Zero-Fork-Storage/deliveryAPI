@@ -45,21 +45,7 @@ class de_dhl:
             return ("ERROR")
         data = resp.json()
         # print(data)
-        results = data['results']
-        
-        state = results[0]
-        checkpoints = state['checkpoints']
-        last_checkpoint = checkpoints[0]
-
-        templit = self.shippingInfo_templit
-        templit['from']['origin'] = state['origin']['value']
-        templit['to']['destination'] = state['destination']['value']
-        templit['state']['DeliveryStatus'] = state['delivery']['status']
-        templit['state']['description'] = last_checkpoint['description']
-        templit['state']['location'] = last_checkpoint['location']
-        templit['state']['date'] = last_checkpoint['date']
-        templit['state']['time'] = last_checkpoint['time']
-        return templit
+        return data
 
         
         

@@ -108,4 +108,4 @@ class CJ_logistics_KR:
         return query_data
 
 cjlogistics = CJ_logistics_KR()
-#print(str(cjlogistics.query(track_id="626035220295")))
+# print(str(cjlogistics.query(track_id="626035220295")))
