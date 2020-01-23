@@ -18,7 +18,8 @@ $python run.py
 ## 사용법
 [https://api.zeroday0619.kr/v1/tracking](https://api.zeroday0619.kr/v1/tracking)
 
-0 => DHL\n
+0 => DHL
+
 1 => CJ 대한통운
 
 ###HTTP
