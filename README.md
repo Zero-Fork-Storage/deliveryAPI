@@ -14,6 +14,10 @@ $ python3 run.py
 or
 $python run.py
 ```
+# Docker
+```
+$ sh ./install.sh
+```
 
 ## 사용법
 [https://api.zeroday0619.kr/v1/tracking](https://api.zeroday0619.kr/v1/tracking)
