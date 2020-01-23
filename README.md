@@ -68,23 +68,13 @@ request(options, function (error, response, body) {
 ## Response
 ```json
 {
-    "timestemp": "2020-01-04 22:11:23",
-    "tracking": [
-        {
-            "from": {
-                "origin": "SHANGHAI - SHANGHAI - CHINA MAINLAND"
-            },
-            "to": {
-                "destination": "SEOUL - SEOUL - KOREA, REPUBLIC OF (SOUTH K.)"
-            },
-            "state": {
-                "DeliveryStatus": "transit",
-                "description": "발송물이 목적지 또는 경유지로 발송되었습니다. SHANGHAI - CHINA MAINLAND",
-                "location": "SHANGHAI - CHINA MAINLAND",
-                "date": "목요일, 1월 02, 2020 ",
-                "time": "17:21"
-            }
-        }
-    ]
+    "timestemp": "2020-01-23 14:42:10",
+    "from": "SHANGHAI - SHANGHAI - CHINA MAINLAND",
+    "to": "SEOUL - SEOUL - KOREA, REPUBLIC OF (SOUTH K.)",
+    "DeliveryStatus": "delivered",
+    "description": "수취인에게 배달되었습니다.: CHA EUISEO",
+    "location": "SEOUL                              ",
+    "date": null,
+    "time": "16:12"
 }
 ``
