@@ -4,8 +4,8 @@ from flask_restful import reqparse
 from app.carriers.de.dhl import de_dhl
 from app.carriers.kr.cjlogistics import cjlogistics
 from app.carriers.ext.templit_source import Templit
-from datetime import datetime
-
+from app.ext._timestemp import GetTimestemp
+from app.ext.as_json import as_json
 
 class DeliveryApiRouter(Resource):
     def __init__(self):
@@ -40,17 +40,17 @@ class DeliveryApiRouter(Resource):
             "DHL", "CJ Logistics"
         ]
     
+    @as_json
     def get(self):
         try:
-            global parser
-            now = datetime.now()
-            nowDatetime = now.strftime('%Y-%m-%d %H:%M:%S')
+            global parser, timestemp
             parser = reqparse.RequestParser()
             parser.add_argument('code', type=int)
             parser.add_argument('track_id', type=str)
             args = parser.parse_args()
             _code: int = args['code']
             _track_id: str = args['track_id']
+            timestemp = GetTimestemp()
             if self.deliveryCompanyList[_code] == "DHL":
                 print(_track_id)
                 da = de_dhl().query(track_id=args['track_id'])
@@ -60,7 +60,7 @@ class DeliveryApiRouter(Resource):
                 dhlData = Templit(arraydata=checkpoints)
                 last_checkpoint = checkpoints[0]
                 return dhlData.generate(
-                    timestemp=nowDatetime,
+                    timestemp=timestemp,
                     origin=state['origin']['value'],
                     destination=state['destination']['value'],
                     currenntstate=state['delivery']['status'],
@@ -81,7 +81,7 @@ class DeliveryApiRouter(Resource):
                 currenntlocation = currentdata['regBranNm']
                 lastcheckpointtime = currentdata['dTime']
                 return cjData.generate(
-                    timestemp=nowDatetime,
+                    timestemp=timestemp,
                     origin="배송 업체에서 정보를 제공하지 않습니다.",
                     destination="배송 업체에서 정보를 제공하지 않습니다.",
                     currenntstate=currenntstate,

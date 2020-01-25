@@ -8,7 +8,6 @@ class Templit:
             'DeliveryStatus': None,
             'description': None,
             'location': None,
-            'date': None,
             'time': None
         }
 

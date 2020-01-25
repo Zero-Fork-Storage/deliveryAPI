@@ -72,7 +72,7 @@ request(options, function (error, response, body) {
 ## Response
 ```json
 {
-    "timestemp": "2020-01-23 14:42:10",
+    "timestemp": "1579915973",
     "from": "SHANGHAI - SHANGHAI - CHINA MAINLAND",
     "to": "SEOUL - SEOUL - KOREA, REPUBLIC OF (SOUTH K.)",
     "DeliveryStatus": "delivered",
