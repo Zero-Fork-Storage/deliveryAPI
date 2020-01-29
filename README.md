@@ -3,22 +3,18 @@
 delivery API for Python
 ===================
 ## install
-```
-pip3 install pipenv
-pip install pipenv
-```
-```
-$ pipenv install
-$ pipenv shell
-$ python3 run.py
-or
-$python run.py
-```
-# Docker
-```
-$ sh ./install.sh
+
+```sh
+git clone https://github.com/zeroday0619/deliveryAPI.git
+cd deliveryAPI
+pip3 install -r requirements.txt
+python3 main.py
 ```
 
+# Docker
+```sh
+./install.sh
+```
 ## 사용법
 [https://api.zeroday0619.kr/v1/tracking](https://api.zeroday0619.kr/v1/tracking)
 
