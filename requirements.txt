@@ -1,0 +1,7 @@
+requests
+flask
+flask-restful
+datetime
+bs4
+lxml
+pipfile
