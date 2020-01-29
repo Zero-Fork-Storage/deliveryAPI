@@ -1,3 +1,6 @@
+import lxml
+from bs4 import BeautifulSoup
+
 class Templit:
     def __init__(self, arraydata: list):
         self.arraydata = arraydata
@@ -47,3 +50,10 @@ class Templit:
         complete_templit['time'] = lastcheckpointtime
         return complete_templit
 
+class Crawler(BeautifulSoup):
+    def __init__(self, content):
+        self.DATA = content
+
+    def soup(self):
+        _soup = BeautifulSoup(self.DATA, 'lxml')
+        return _soup
