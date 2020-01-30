@@ -18,16 +18,20 @@ resp = requests.post(
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36'
     },
     params={
-        'sid1': ''
+        'sid1': '6066252805008'
     }
 )
 
 soup = BeautifulSoup(resp.content, 'lxml')
 informationTable = soup.select('.table_col:nth-child(2)')[0]
+array = []
 for row in informationTable.find_all('td'):
     row2 = re.sub('<.+?>', '',str(row)).strip()
-    nospace = [re.sub('&nbsp;| |\t|\r|', '', row2).replace('\n', ' ')]
-    print(nospace)
+    nospace = re.sub('&nbsp;| |\t|\r|', '', row2).replace('\n', ' ')
+    array.append(nospace)
+array = ' '.join(array).split()
+print(array)
+    
 
 
 progressTable = soup.select('.table_col:nth-child(1)')
