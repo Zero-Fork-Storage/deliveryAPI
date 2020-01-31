@@ -21,22 +21,20 @@ resp = requests.post(
         'sid1': ''
     }
 )
-
+def editList(l, n):
+    for i in range(0, len(l), n):
+        yield l[i:i + n]
+# ----------------------------------------------------------------------------
 soup = BeautifulSoup(resp.content, 'lxml')
 informationTable = soup.select('.table_col:nth-child(2)')[0]
-array = []
+informationTableArray = []
 for row in informationTable.find_all('td'):
     row2 = re.sub('<.+?>', '',str(row)).strip()
     nospace = re.sub('&nbsp;| |\t|\r|', '', row2).replace('\n', ' ')
-    array.append(nospace)
-array = ' '.join(array).split()
-print(array)
-def editList(l, n):
-    for i in range(0, len(l)-5, n):
-        yield l[i:i + n]
-
-progressTable = soup.select('.table_col:nth-child(1)')[0]
-# print(progressTable)
+    informationTableArray.append(nospace)
+informationTableArray = ' '.join(informationTableArray).split()
+# ------------------------------------------------------------------------
+progressTable = soup.select('.table_col:nth-child(1)')[0]# print(progressTable)
 progressTableArray = []
 for row3 in progressTable.find_all('td'):
     row4 = re.sub('<.+?>', '',str(row3)).strip()
@@ -44,7 +42,26 @@ for row3 in progressTable.find_all('td'):
     nospace2 = re.sub('\([^)]*\)', '', nospace2)
     progressTableArray.append(nospace2)
 progressTableArray = ' '.join(progressTableArray).strip().split()
-
 progressTableResult = list(editList(progressTableArray, 4))
-print(progressTableResult)
+# --------------------------------------------------------------------------
+#print(informationTableArray)
 
+
+
+
+#print(progressTableResult)
+progressTablelength = len(progressTableResult) - 2
+
+jsonTemplit = {
+    0: None,
+    1: None,
+    2: None,
+    3: None
+}
+
+jsonarray = []
+for ix in range(progressTablelength):
+    for xi in range(4):
+        jsonTemplit[xi] = progressTableResult[ix][xi]
+    jsonarray.append(jsonTemplit)
+print(jsonarray)
