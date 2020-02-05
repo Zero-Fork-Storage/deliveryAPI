@@ -11,18 +11,20 @@ class Templit:
             'DeliveryStatus': None,
             'description': None,
             'location': None,
-            'time': None
+            'time': None,
+            'trace': None
         }
 
     def state(self):
         length = len(self.arraydata)
         return length - length - 1
+
             
     
     def lastCheckPoint(self, data: list, num: int):
         return data[num]
 
-    def generate(self, timestemp: str, origin: str, destination: str, currenntstate: str, currenntdescription: str, currenntlocation: str, lastcheckpointtime: str):
+    def generate(self, timestemp: str, origin: str, destination: str, currenntstate: str, currenntdescription: str, currenntlocation: str, lastcheckpointtime: str, trace: list):
         """
         timestemp:
             Api 요청 시간
@@ -48,6 +50,7 @@ class Templit:
         complete_templit['description'] = currenntdescription
         complete_templit['location'] = currenntlocation
         complete_templit['time'] = lastcheckpointtime
+        complete_templit['trace'] = trace
         return complete_templit
 
 class Crawler(BeautifulSoup):

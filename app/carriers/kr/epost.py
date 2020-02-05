@@ -18,7 +18,7 @@ resp = requests.post(
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36'
     },
     params={
-        'sid1': ''
+        'sid1': '1234567890123'
     }
 )
 def editList(l, n):
@@ -47,21 +47,21 @@ progressTableResult = list(editList(progressTableArray, 4))
 #print(informationTableArray)
 
 
-
+#print(progressTableResult)
 
 #print(progressTableResult)
-progressTablelength = len(progressTableResult) - 2
+progressTablelength = len(progressTableResult) - 1
 
-jsonTemplit = {
-    0: None,
-    1: None,
-    2: None,
-    3: None
-}
 
-jsonarray = []
+a = []
 for ix in range(progressTablelength):
+    jsonTemplit = {}
+    testData = ['date'], ['time'], ['location'], ['status']
     for xi in range(4):
-        jsonTemplit[xi] = progressTableResult[ix][xi]
-    jsonarray.append(jsonTemplit)
-print(jsonarray)
+        for kx in testData[xi]:
+            jsonTemplit[kx] = progressTableResult[ix][xi]
+    a.append(jsonTemplit)
+b = json.dumps(a, indent=4, ensure_ascii=False)
+print(b)
+
+print(informationTableArray)
