@@ -1,5 +1,5 @@
 from .TimeStamp import TimeStamp
-from .Performance import Performance
+from app.util.ext.Performance import Performance
 
 timestamp = TimeStamp()
 power = Performance()

@@ -1,8 +1,10 @@
 from fastapi import FastAPI, Depends
 from app.config import config
-from Apis.kr.CjLogistics import CjLogistics
 from fastapi_plugins import redis_plugin, depends_redis
+from app.core.carriers.kr.CjLogistics import CjLogistics
+from app.models.jsonModel import ResponseModel
 from aioredis import Redis
+from app.core import Routing
 from app.util import timestamp
 import typing
 
@@ -19,10 +21,13 @@ async def root_get(cache: Redis = Depends(depends_redis), ) -> typing.Dict:
     stamp = await timestamp.stamp()
     return {"timestamp": stamp}
 
-@app.get("/{track_id}")
-async def root_get(track_id: str ,cache: Redis = Depends(depends_redis), ) -> typing.Dict:
-    so = CjLogistics()
-    return await so.GetCsrfCode(track_id=track_id)
+
+@app.get("/{track_id}", response_model=ResponseModel)
+async def track_get(track_id, cache: Redis = Depends(depends_redis), ) -> typing.Dict:
+    source = Routing()
+    one = await source.excute(track_id=track_id)
+    return one
+
 
 @app.on_event('startup')
 async def on_startup() -> None:
