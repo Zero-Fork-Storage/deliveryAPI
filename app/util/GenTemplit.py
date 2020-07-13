@@ -18,7 +18,7 @@ class GenTemplit:
     async def LastCheckPoint(data: list, num: int):
         return data[num]
 
-    async def generate(self, From: str, To: str, State: str, Description: str, Location: str, LastCheckPointTime: str, timestamp: str):
+    async def generate(self, State: str, Description: str, Location: str, LastCheckPointTime: str, timestamp: str,From: str = "배송 업체에서 정보를 제공하지 않습니다.", To: str = "배송 업체에서 정보를 제공하지 않습니다."):
         """
         timestamp:
             Api 요청 시간

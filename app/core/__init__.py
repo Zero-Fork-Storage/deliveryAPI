@@ -10,8 +10,7 @@ class Routing:
         self.source = CjLogisticsProcessor()
 
     async def excute(self, track_id):
-        a = CjLogisticsProcessor()
-        v = await a.CjConverter(track_id=track_id)
+        v = await self.source.CjConverter(track_id=track_id)
         R = ResponseModel(**v)
         return v
 
@@ -25,4 +24,4 @@ class Routing:
 'time': R.Time,
 'timestamp': R.TimeStamp
 }
-        """
+"""

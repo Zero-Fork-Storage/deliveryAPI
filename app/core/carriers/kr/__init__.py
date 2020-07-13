@@ -11,18 +11,19 @@ class CjLogisticsProcessor:
     def __init__(self):
         self.loop = Performance()
         self.timestamp = TimeStamp()
+        self.source = CjLogistics()
 
     async def CjConverter(self, track_id):
-        a = CjLogistics()
-        sourc = await a.GetCsrfCode(track_id=track_id)
-        source = ujson.loads(ujson.dumps(sourc))
+        csrf = await self.source.GetCsrfCode(track_id=track_id)
+        source = ujson.loads(ujson.dumps(csrf))
         ParcelDetailResultMap = source['parcelDetailResultMap']
         ResultList = ParcelDetailResultMap['resultList']
 
-
         Source = GenTemplit()
-        CurrentLength = Source.state(arrayData=ResultList)
-        global d
+        # CurrentLength = Source.state(arrayData=ResultList)
+
+        list_data = []
+        so = list_data.append
 
         for CurrentData in ResultList:
             CurrentState = CurrentData['scanNm']
@@ -31,13 +32,13 @@ class CjLogisticsProcessor:
             LastCheckPointTime = CurrentData['dTime']
             timestamp = await self.timestamp.stamp()
             d = [CurrentState, CurrentDescription,CurrentLocation, LastCheckPointTime, timestamp]
+            so(d)
+
         One = await Source.generate(
-            From="배송 업체에서 정보를 제공하지 않습니다.",
-            To="배송 업체에서 정보를 제공하지 않습니다.",
-            State=d[0],
-            Description=d[1],
-            Location=d[2],
-            LastCheckPointTime=d[3],
-            timestamp=d[4]
+            State=list_data[0][0],
+            Description=list_data[0][1],
+            Location=list_data[0][2],
+            LastCheckPointTime=list_data[0][3],
+            timestamp=list_data[0][4]
         )
         return One

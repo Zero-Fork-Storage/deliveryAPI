@@ -22,7 +22,7 @@ async def root_get(cache: Redis = Depends(depends_redis), ) -> typing.Dict:
     return {"timestamp": stamp}
 
 
-@app.get("/{track_id}", response_model=ResponseModel)
+@app.get("/{track_id}")
 async def track_get(track_id, cache: Redis = Depends(depends_redis), ) -> typing.Dict:
     source = Routing()
     one = await source.excute(track_id=track_id)
